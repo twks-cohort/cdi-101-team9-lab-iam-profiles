@@ -6,3 +6,5 @@ local.env
 .public.key
 .terraform.lock.hcl
 Pipfile.lock
+.idea
+blue-lab-iam-profiles.iml
