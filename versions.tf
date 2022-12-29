@@ -8,7 +8,7 @@ terraform {
 
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "twdps"
+    organization = "twks-cohort"
     workspaces {
       prefix = "lab-iam-profiles-"
     }
