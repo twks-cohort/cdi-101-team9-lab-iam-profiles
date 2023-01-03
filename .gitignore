@@ -8,3 +8,4 @@ local.env
 Pipfile.lock
 .idea
 blue-lab-iam-profiles.iml
+venv
