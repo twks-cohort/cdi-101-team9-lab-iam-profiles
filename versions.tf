@@ -2,11 +2,11 @@ terraform {
   required_version = "~> 1.2"
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
-    datadog = {
-      source = "DataDog/datadog"
-    }
+    # datadog = {
+    #   source = "DataDog/datadog"
+    # }
   }
 
   backend "remote" {
@@ -36,7 +36,7 @@ provider "aws" {
   }
 }
 
-provider "datadog" {
-  api_key = var.datadog_api_key
-  app_key = var.datadog_app_key
-}
+# provider "datadog" {
+#   api_key = var.datadog_api_key
+#   app_key = var.datadog_app_key
+# }
