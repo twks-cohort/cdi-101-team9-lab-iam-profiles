@@ -13,11 +13,11 @@ locals {
 
 # members of the nonprod service account group can assume any role in any non-production account
 module "DPSNonprodServiceAccountGroup" {
-  count = var.create_iam_profiles ? 1 : 0
+  count   = var.create_iam_profiles ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-group-with-assumable-roles-policy"
   version = "~> 5.1"
 
-  name = "DPSNonprodServiceAccountGroup"
+  name            = "DPSNonprodServiceAccountGroup"
   assumable_roles = local.nonprod_roles
   group_users = [
     module.DPSNonprodServiceAccount.iam_user_name
@@ -26,11 +26,11 @@ module "DPSNonprodServiceAccountGroup" {
 
 # members of the prod service account group can assume any role in any production accounts
 module "DPSProdServiceAccountGroup" {
-  count = var.create_iam_profiles ? 1 : 0
+  count   = var.create_iam_profiles ? 1 : 0
   source  = "terraform-aws-modules/iam/aws//modules/iam-group-with-assumable-roles-policy"
   version = "~> 5.1"
 
-  name = "DPSProdServiceAccountGroup"
+  name            = "DPSProdServiceAccountGroup"
   assumable_roles = local.all_roles
   group_users = [
     module.DPSProdServiceAccount.iam_user_name
@@ -41,14 +41,14 @@ module "DPSProdServiceAccountGroup" {
 # to assume any role in any platform account. Where the platform teams individual
 # access is managed through an idp federation then this functionality may need to
 # be created by the IAM team who managed the federation.
-module "DPSCoreLabsTeamGroup" {
-  count = var.create_iam_profiles ? 1 : 0
-  source  = "terraform-aws-modules/iam/aws//modules/iam-group-with-assumable-roles-policy"
-  version = "~> 5.1"
+# module "DPSCoreLabsTeamGroup" {
+#   count = var.create_iam_profiles ? 1 : 0
+#   source  = "terraform-aws-modules/iam/aws//modules/iam-group-with-assumable-roles-policy"
+#   version = "~> 5.1"
 
-  name = "DPSCoreLabsTeamGroup"
-  assumable_roles = local.all_roles
-}
+#   name = "DPSCoreLabsTeamGroup"
+#   assumable_roles = local.all_roles
+# }
 
 
 
@@ -56,8 +56,8 @@ module "DPSCoreLabsTeamGroup" {
 # initially a single platform team is responsible for all platform account infrastructure
 module "DPSNonprodServiceAccount" {
   create_user = var.create_iam_profiles
-  source  = "terraform-aws-modules/iam/aws//modules/iam-user"
-  version = "~> 5.1"
+  source      = "terraform-aws-modules/iam/aws//modules/iam-user"
+  version     = "~> 5.1"
 
   name                          = "DPSNonprodServiceAccount"
   create_iam_access_key         = true
@@ -68,14 +68,14 @@ module "DPSNonprodServiceAccount" {
 }
 
 output "DPSNonprodServiceAccount_aws_access_key_id" {
-  value = var.create_iam_profiles ? module.DPSNonprodServiceAccount.iam_access_key_id : ""
-  sensitive   = true
+  value     = var.create_iam_profiles ? module.DPSNonprodServiceAccount.iam_access_key_id : ""
+  sensitive = true
 }
 
 # gpg public key encrypted version of DPSSimpleServiceAccount aws-secret-access-key
 output "DPSNonprodServiceAccount_encrypted_aws_secret_access_key" {
-  value = var.create_iam_profiles ? module.DPSNonprodServiceAccount.iam_access_key_encrypted_secret : ""
-  sensitive   = true
+  value     = var.create_iam_profiles ? module.DPSNonprodServiceAccount.iam_access_key_encrypted_secret : ""
+  sensitive = true
 }
 
 
@@ -83,8 +83,8 @@ output "DPSNonprodServiceAccount_encrypted_aws_secret_access_key" {
 # initially a single platform team is responsible for all platform account infrastructure
 module "DPSProdServiceAccount" {
   create_user = var.create_iam_profiles
-  source  = "terraform-aws-modules/iam/aws//modules/iam-user"
-  version = "~> 5.1"
+  source      = "terraform-aws-modules/iam/aws//modules/iam-user"
+  version     = "~> 5.1"
 
   name                          = "DPSProdServiceAccount"
   create_iam_access_key         = true
@@ -95,12 +95,12 @@ module "DPSProdServiceAccount" {
 }
 
 output "DPSProdServiceAccount_aws_access_key_id" {
-  value = var.create_iam_profiles ? module.DPSProdServiceAccount.iam_access_key_id : ""
-  sensitive   = true
+  value     = var.create_iam_profiles ? module.DPSProdServiceAccount.iam_access_key_id : ""
+  sensitive = true
 }
 
 # gpg public key encrypted version of DPSProdServiceAccount aws-secret-access-key
 output "DPSProdServiceAccount_encrypted_aws_secret_access_key" {
-  value = var.create_iam_profiles ? module.DPSProdServiceAccount.iam_access_key_encrypted_secret : ""
-  sensitive   = true
+  value     = var.create_iam_profiles ? module.DPSProdServiceAccount.iam_access_key_encrypted_secret : ""
+  sensitive = true
 }
