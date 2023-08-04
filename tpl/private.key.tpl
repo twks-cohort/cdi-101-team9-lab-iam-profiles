@@ -1,1 +1,1 @@
-op://cohorts/blue-svc-gpg-private.key/notesPlain
+op://empc-lab/svc-gpg-private.key/notesPlain

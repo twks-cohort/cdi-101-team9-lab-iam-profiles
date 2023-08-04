@@ -18,7 +18,7 @@ While the number of team-bounded domains in a delivery infrastructure platform w
 
 You see this pattern repeated across the SaaS and mobile marketplace. You are experiencing it right now as you read this file on github.com. As many people are aware, github.com is hosted on rackspace.com. Since being purchased by Microsoft, many new features are being hosted on Azure. When you use those new hosted GitHub Runners, you are not personally working from an Azure identity. You created a discrete github identity (or perhaps it was created for you through your organizational SSO integration with github). Github services use this _constomer identity_ to manage the data and services to which individual users have access.  
 
-How this relates to a delivery infrastructure platform will become more apparent if you follow along in the dps-labs series of platform repos. For now, know that in the context of IAM users and the roles assumed by IAM users, the goal is to limit kinds and numbers of IAM users to just the Platform team itself and the service accounts used by the pipelines that orchestrate the provisioning and lifecycle management of the underlying infrastructure.  
+How this relates to a delivery infrastructure platform will become more apparent if you follow along in the dps-labs series of platform repos. For now, know that in the context of IAM users and the roles assumes by IAM users, the goal is to limit kinds and numbers of IAM users to just the Platform team itself and the service accounts used by the pipelines that orchestrate the provisioning and lifecycle management of the underlying infrastructure.  
 
 **note**: Why is this repo named `iam-profiles`? When using the AWS command-line tool to interact with Amazon Web Services, a users AWS Profile is used as a term to refer to the combination of the users AWS credentials, the particular role they wish to assume, and the AWS region to reference by default when processing user commands. Since this repo and pipeline are chiefly concerned with managing the service account identities and credentials and all the user-assumeable roles across the AWS accounts used by this delivery platform, the name iam-profiles is adopted as a team convention to identity the primary pipeline responsibilities. And it can be said that the `domain` of this pipeline is the management of IAM services accounts, and the roles that service accounts or platform developers may assume.  
 
@@ -99,7 +99,11 @@ examples:
 
 arn:aws:iam::*:role/DPSIamProfilesRole  
 arn:aws:iam::*:role/DPSPlatformEksBaseRole  
-arn:aws:iam::*:role/DPSPlatformEksCoreServicesRole
+arn:aws:iam::*:role/DPSPlatformEksCoreServicesRole  
+
+## DataDog
+
+The aws account core integration to datadog is a external-id based role. This is a single role per aws account and in the lab is managed by this repo/pipeline.  
 
 #### Dependencies
 
